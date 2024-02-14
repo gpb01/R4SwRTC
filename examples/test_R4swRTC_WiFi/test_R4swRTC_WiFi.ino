@@ -50,18 +50,18 @@ uint16_t connectWiFi ( char* ssid, char* passwd ) {
    if ( WiFi.status() == WL_NO_MODULE ) {
       return WL_NO_MODULE;
    }
-   
+
    if ( WiFi.status() == WL_CONNECTED ) {
       return WL_CONNECTED;
    }
-   
+
    WiFiTimeout = millis();
    while ( WiFiStatus != WL_CONNECTED ) {
       WiFiStatus = WiFi.begin ( ssid, passwd );
       delay ( 1000 );
       if ( millis() - WiFiTimeout >= MAX_WAITING_TIME ) {
          return WL_CONNECT_FAILED;
-      }      
+      }
       timeClient.begin();
       delay ( 100 );
    }
@@ -86,10 +86,10 @@ time_t getNTPtime ( void ) {
 void setup() {
    delay ( 500 );
    pinMode ( LED_BUILTIN, OUTPUT );
-   
+
    Serial.begin ( 115200 );
    while ( !Serial ) delay ( 100 );
-   
+
    Serial.println ( "Program started, try to connect to Wifi ..." );
    WiFi_Status = connectWiFi ( ssid, pass );
    if ( WiFi_Status != WL_CONNECTED ) {
@@ -98,9 +98,9 @@ void setup() {
    }
    Serial.print ( "Connected to WiFi, local IP address is: " );
    Serial.println ( WiFi.localIP() );
-   
+
    myRTC.begin ( CNT_FREQ );
-   
+
    NTPtime = getNTPtime();
    if ( 0 == NTPtime ) {
       Serial.println ( "Unable to retrive NTP time!" );
@@ -109,7 +109,7 @@ void setup() {
    Serial.print ( "Initial time from NTP:" );
    Serial.println ( NTPtime );
    Serial.println( );
-   
+
    myRTC.setUnixTime ( NTPtime );
    nHours     = 0;
    nHalfHours = 0;
@@ -130,7 +130,7 @@ void loop() {
       ledState = !ledState;
       ledMillis += 1000;
    }
-   
+
    if ( millis() - lastMillis > 1800000 ) {
       nHalfHours ++;
       if ( 2 == nHalfHours ) {
@@ -158,7 +158,7 @@ void loop() {
          Serial.print ( asctime ( myRTC.getTmTime () ) );
          Serial.println ( " (UTC)" );
          Serial.println ( );
-         lastMillis = millis();
       }
+      lastMillis = millis();
    }
 }
