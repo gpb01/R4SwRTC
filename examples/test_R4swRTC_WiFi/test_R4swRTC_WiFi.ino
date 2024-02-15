@@ -5,8 +5,8 @@
    Copyright (C) 2024 Guglielmo Braguglia
 */
 
-#define  CNT_FREQ      100.076   /* If swRTC goes forward, decrease the frequency, if it lags, increase the frequency */
-#define MAX_WAITING_TIME 30000
+#define  TMR_FREQ_HZ   100.076   /* If swRTC goes forward, decrease the frequency, if it lags, increase the frequency */
+#define MAX_WAITING_TIME 30000   /* Maximum waiting time to connect to WiFi in ms */
 
 #include <WiFiS3.h>
 #include <NTPClient.h>
@@ -99,7 +99,7 @@ void setup() {
    Serial.print ( "Connected to WiFi, local IP address is: " );
    Serial.println ( WiFi.localIP() );
 
-   myRTC.begin ( CNT_FREQ );
+   myRTC.begin ( TMR_FREQ_HZ );
 
    NTPtime = getNTPtime();
    if ( 0 == NTPtime ) {
@@ -109,10 +109,15 @@ void setup() {
    Serial.print ( "Initial time from NTP:" );
    Serial.println ( NTPtime );
    Serial.println( );
-
    myRTC.setUnixTime ( NTPtime );
    nHours     = 0;
    nHalfHours = 0;
+
+#ifdef OUT_CLOCK
+   Serial.println ( "Timer clock available on pin D7" );
+   Serial.println ( );
+#endif
+
    lastMillis = millis();
 }
 

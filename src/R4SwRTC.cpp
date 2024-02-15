@@ -36,6 +36,10 @@ static volatile uint64_t timerCount;
 static volatile time_t   unixTime;
 static FspTimer          the_timer;
 
+#ifdef OUT_CLOCK
+static volatile bool     pinState = false;
+#endif
+
 /*
       --- Private methods ---
 */
@@ -46,6 +50,32 @@ void r4SwRTC::timer_callback ( timer_callback_args_t __attribute ( ( unused ) ) 
       unixTime++;
       timerCount = 0;
    }
+
+#ifdef OUT_CLOCK
+   if ( pinState ) {
+
+#if defined ( ARDUINO_UNOR4_MINIMA )
+      *PFS_P107PFS_BY = 0x04;         // digitalWrite(D7, LOW);
+#elif defined ( ARDUINO_UNOR4_WIFI )
+      *PFS_P112PFS_BY = 0x04;         // digitalWrite(D7, LOW);
+#else
+#error "This program can run only on UNO R4"
+#endif
+
+   } else {
+
+#if defined ( ARDUINO_UNOR4_MINIMA )
+      *PFS_P107PFS_BY = 0x05;         // digitalWrite(D7, HIGH);
+#elif defined ( ARDUINO_UNOR4_WIFI )
+      *PFS_P112PFS_BY = 0x05;         // digitalWrite(D7, HIGH);
+#else
+#error "This program can run only on UNO R4"
+#endif
+
+   }
+   pinState = !pinState;
+#endif /* OUT_CLOCK */
+
 }
 
 bool r4SwRTC::beginTimer ( float rate ) {

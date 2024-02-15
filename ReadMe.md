@@ -17,7 +17,19 @@ The R4SwRTC library uses one of the GPT timers in the MCU (*which also does not 
 
 ### Library usage and initialization
 
-##### Initialization
+#### Customization/Debug
+
+If you want to have the timer clock signal on an Arduino pin (*pin D7*) for debugging purposes, you have to remove the comment on the following line in the .h of the library (*at the beginning*):
+
+`/* #define OUT_CLOCK */`
+
+and change it to:
+
+`#define OUT_CLOCK`
+
+This way, pin **D7** will change state every clock cycle of the timer and you should have a signal of exactly 50 Hz (*10 ms HIGH and 10 ms LOW*) on it. This can help in choosing the value of the begin() method parameter (*timer frequency*).
+
+#### Initialization
 
 To use this library first you have to add, at the beginning of your program:
 

@@ -22,20 +22,20 @@ uint32_t          lastMillis;
 
 void setup() {
    bool retVal;
-   //
+   
    delay ( 500 );
    pinMode ( LED_BUILTIN, OUTPUT );
-   //
+   
    Serial.begin ( 115200 );
    while ( !Serial ) delay ( 100 );
-   //
+   
    lastMillis = millis();
    retVal = myRTC.begin ( TMR_FREQ_HZ );
    if ( !retVal ) {
       Serial.println ( "Unable to start a free timer." );
       while ( true ) delay ( 100 );
    }
-   //
+   
    Serial.setTimeout ( 10000 );
    while ( true ) {
       Serial.print ( "Please enter the actual uinxTime: " );
@@ -47,6 +47,11 @@ void setup() {
    myRTC.setUnixTime ( T_Time );
    Serial.println ( asctime ( myRTC.getTmTime() ) );
    Serial.println ( );
+
+#ifdef OUT_CLOCK
+   Serial.println ( "Timer clock available on pin D7" );
+   Serial.println ( );
+#endif
 }
 
 /*
@@ -63,7 +68,7 @@ void loop() {
       ledState = !ledState;
       ledMillis += 1000;
    }
-   //
+   
    if ( millis() - lastMillis > CLOCK_UPDT ) {
       T_Time = myRTC.getUnixTime();
       Serial.print ( "Time from SwRTC:" );

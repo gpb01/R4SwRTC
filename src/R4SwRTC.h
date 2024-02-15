@@ -37,6 +37,18 @@
 #define R4_SW_RTC
 
 /*
+   For debugging purposes only
+*/
+
+/* #define OUT_CLOCK */                   /* uncommento to have the clock on pin D7 */
+
+#ifdef OUT_CLOCK
+#define PORTBASE 0x40040000 /* Port Base */
+#define PFS_P107PFS_BY ((volatile unsigned char  *)(PORTBASE + 0x0843 + ( 7 * 4))) // D7 UNO R4 MINIMA
+#define PFS_P112PFS_BY ((volatile unsigned char  *)(PORTBASE + 0x0843 + (12 * 4))) // D7 UNO R4 WIFI
+#endif
+
+/*
    --- Module defines ---
 */
 
