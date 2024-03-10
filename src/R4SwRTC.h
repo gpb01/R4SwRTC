@@ -52,11 +52,11 @@
    --- Module defines ---
 */
 
-#define R4SWRTC_VER    "1.0.0"      /* r4SwRTC library internal string   version */
-#define R4SWRTC_VER_NUM 10000       /* r4SwRTC library internal numeric  version */
+#define R4SWRTC_VER    "1.0.1"      /* r4SwRTC library internal string   version */
+#define R4SWRTC_VER_NUM 10001       /* r4SwRTC library internal numeric  version */
 #define R4SWRTC_VER_MAJ     1       /* r4SwRTC library internal major    version */
 #define R4SWRTC_VER_MIN     0       /* r4SwRTC library internal minor    version */
-#define R4SWRTC_VER_REV     0       /* r4SwRTC library internal revision version */
+#define R4SWRTC_VER_REV     1       /* r4SwRTC library internal revision version */
 
 #define TMR_FREQ        100.0       /* default timer frequency in Hz */
 #define CNT_CMPR          100       /* counter value for 1 second */

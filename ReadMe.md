@@ -1,4 +1,4 @@
-# R4SwRTC Library v1.0.0
+# R4SwRTC Library v1.0.1
 © 2024 Guglielmo Braguglia
 
 ---

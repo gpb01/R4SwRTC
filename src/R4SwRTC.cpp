@@ -30,7 +30,7 @@
 */
 
 
-#include "R4swRTC.h"
+#include "R4SwRTC.h"
 
 static volatile uint64_t timerCount;
 static volatile time_t   unixTime;
